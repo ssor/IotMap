@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>车辆监控系统</title>
+    <load href='__PUBLIC__/Css/common.css' />
+    <load href='__PUBLIC__/Css/demo_table.css' />
+    <load href='__PUBLIC__/Css/demo_table_jui.css' />
+    <load href='__PUBLIC__/Css/demo_page.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-1.8.4.custom.css' />
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jQTreeTable.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+			$('.checkbox').click(
+				function() {
+					if ($(this).attr("checked") == "checked") { // 全选
+						//alert('选择');
+
+					}
+					else {
+						//alert('取消选择');
+						if ($('#chkAll').attr("checked") == "checked") {
+							$('#chkAll').removeAttr("checked");
+						}
+					}
+					//$(this).attr({ checked: "checked" });
+				}
+			);
+
+            $('#chkAll').click(
+            function() {
+                if ($(this).attr("checked") == "checked") { // 全选
+                    $('.checkbox').each(
+                    function() {
+                        $(this).attr({ checked: "checked" });
+                    }
+                    );
+                    //alert('全选');
+                }
+                else {
+                    $('.checkbox').each(
+                    function() {
+                        //$(this).attr({ checked: '' });
+                        $(this).removeAttr("checked");
+                    }
+                    );
+                    //alert('取消全选');
+                }
+            }
+            );
+            $('#example').dataTable(
+				{
+				    "bPaginate": true,
+				    //"sScrollX": "100%",
+				    //"sScrollXInner": "110%",
+				    "bInfo": true,
+				    //"bAutoWidth": true,
+				    "bFilter": true,
+				    "sPaginationType": "full_numbers",
+				    "bJQueryUI": true
+				}
+				);
+
+            $('#btnedit').click(function() {
+				var arrChk=$("input[name='checkhead']:checked"); 
+                    if ($(arrChk).length > 1) {
+                        alert('一次只能选择一辆车');
+                        return;
+                    }
+					if ($(arrChk).length <= 0) {
+                        alert('请先选择要编辑的车辆信息!');
+                        return;
+                    }
+                var strs = "";
+                $(".checkbox").each(
+             function() {
+                 //   strs = $(this).attr("id");
+                 if ($(this).attr("checked") == "checked") {
+                     strs = $(this).attr("carid");
+                 }
+             }
+             );
+                if (strs != "") {
+
+                    //这里将得到的数据发送到服务器
+                    window.location.href = "__URL__/editCar/carID/"+strs;
+                } else {
+                    alert("请先选择要编辑的项！");
+                }
+
+            });
+			//删除
+			$('#btndelete').click(function() {
+				var arrChk=$("input[name='checkhead']:checked"); 
+				if ($(arrChk).length < 1) {
+					alert('请先选择要删除的项！');
+					return;
+				}
+				var strs = "";
+				$(".checkbox").each(
+					function() {
+					 //   strs = $(this).attr("id");
+					 if ($(this).attr("checked") == "checked") {
+						 if (strs != "") {
+							 strs += "?";
+						 }
+						 strs += $(this).attr("carid");
+					 }
+					}
+				);
+				if (strs != "") {
+					del(strs);
+
+					//这里将得到的数据发送到服务器
+					// alert(strs);
+				} else {
+					alert("请先选择要删除的项！");
+				}
+
+			});
+			$('#btnadd').click(
+			function()
+			{
+				//window.location.href = "__URL__/addCar";
+				add();
+			}
+			
+			);
+        });
+        function del(str) {
+            window.location.href = "__URL__/deleteCar/ids/"+str;
+        }   
+        function add() {
+            window.location.href = "__URL__/addCar";
+        }  		
+        function goMonitor(str) {
+            window.location.href = "__URL__/startMnting/carid/"+str;
+        }      
+        
+    </script>
+
+</head>
+<body id = "bodycontent">
+    <div id="maincontent">
+        <div class="divSubTitle">
+            管理车辆
+        </div>
+        <div id="divSubTitleTip">
+            添加新车，更改或者删除现有车辆
+        </div>
+        <div id='DivSearch'>
+            <input type="button" value="新增" class="buttonOperate" id="btnadd">
+            <input type="button" value="编辑" class="buttonOperate" id="btnedit">
+            <input type="button" value="删除" class="buttonOperate" id="btndelete">
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+                <tr>
+                    <th>
+                     <!--   <input type="checkbox" id="chkAll">-->
+                    </th>
+                    <th>
+                        车牌号码
+                    </th>
+                    <th>
+                        车辆类型
+                    </th>
+					 <th>
+                        购买时间
+                    </th>
+					 <th>
+                        当前状态
+                    </th>					
+                </tr>
+            </thead>
+            <tbody id="treet1">
+                <volist name="carList" id="vo">
+					<tr class="odd">
+						<td class = "tdCheck">
+						<input type="checkbox" name="checkhead"  carid="{$vo.CAR_ID}"  class ="checkbox">
+						</td>
+						<td >{$vo.CAR_ID}</td>
+						<td >{$vo.VIHICLE_TYPE}</td>
+						<td >{$vo.BUY_TIME}</td>
+						<td >{$vo.CAR_STATE}</td>
+					</tr>
+				</volist>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<html>
+<head>
+	<meta	http-equiv="Content-Type"	content="text/html;	charset=utf-8"	/>
+	<meta http-equiv="pragma" content="no-cache" />
+
+	<load	href='__PUBLIC__/Css/common.css'	/>
+	<link   href="__PUBLIC__/Js/boxy/boxy.css" rel="stylesheet" type="text/css" />
+
+	<script	type="text/javascript"	language="javascript"	src="__PUBLIC__/Js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://api.go2map.com/maps/js/api_v2.5.js"></script>
+	<script type="text/javascript" src="http://api.go2map.com/maps/js/component/ruler.js"></script>
+	<!-- // <script	type="text/javascript"	language="javascript"	src="__PUBLIC__/Js/labels.js"></script> -->
+	<!-- // <script	type="text/javascript"	language="javascript"	src="__PUBLIC__/Js/ruler.js"></script> -->
+	<!--<script type="text/javascript" src="__PUBLIC__/Js/boxy/jquery.boxy.js"></script>-->
+	<script src="__PUBLIC__/js/tools.js" type="text/javascript"></script>  
+
+	<style>
+
+		.infoWindowContent {
+		  width: 300px;
+		  height: 300px;
+		  overflow: auto;
+		}
+	</style>
+	<script	type="text/javascript" language="javascript">
+
+	var	g_map;
+	var	g_mark;
+	var	isMonitoring;
+	var	refreshTimeSpan	=	5000;
+	var g_infowindow = null;
+	g_ruler = null;
+	var cameraArray = null;
+	var camera_count = 3;
+
+	$(document).ready(function(){
+		initialize();
+
+		SetPointMarkOnMap(null);
+		
+	});
+
+	function RulerControl(controlDiv, map) {
+
+		  // 为自定义控件设置CSS样式
+		  controlDiv.style.padding = '5px';
+		 
+		  var controlUI = document.createElement('DIV');
+		  controlUI.style.backgroundColor = 'rgb(244,244,244)';
+		  controlUI.style.width = '45px';
+		  controlUI.style.height = '18px';
+		  controlUI.style.borderStyle = 'solid';
+		  controlUI.style.borderWidth = '1px';
+		  controlUI.style.cursor = 'pointer';
+		  controlUI.style.textAlign = 'center';
+		  controlUI.title = '点击我测量距离';
+		  controlDiv.appendChild(controlUI);
+		 
+		  var controlText = document.createElement('DIV');
+		  controlText.style.fontFamily = 'Arial,sans-serif';
+		  controlText.style.fontSize = '12px';
+		  controlText.style.paddingLeft = '4px';
+		  controlText.style.paddingRight = '4px';
+		  controlText.innerHTML = '<b>测距</b>';
+		  controlUI.appendChild(controlText);
+		 
+		  // 添加一个侦听器，使得点击后调用方法设置地图到
+		  // 上海
+		  sogou.maps.event.addDomListener(controlUI, 'click', function() {
+		    // map.setCenter(shanghai)
+				g_ruler.open();
+		  });
+	}
+	
+	function initialize()	{
+		var	latlng	=	new	sogou.maps.LatLng(39.96020463653672,116.35920044708252);
+		var	myOptions	=	{
+			zoom:	16,
+			center:	latlng,
+			mapControl: true,
+			scaleControl: true,
+			mapTypeId:	sogou.maps.MapTypeId.ROADMAP
+		};
+		// 12953220.703125   4832605.46875
+		// 39.96220463653672,116.36620044708252  北京师范大学
+		// 39.8552,	116.4321  北京中心
+		//	初始化地图及各个按钮的位置
+		var	vMapDiv	=	document.getElementById("map_canvas");
+		g_map	=	new	sogou.maps.Map(vMapDiv,	myOptions);
+		g_ruler = new Ruler({'map':g_map});
+
+
+		var rulerDiv = document.createElement('DIV');
+		rulerDiv.style.position="absolute";
+		rulerDiv.style.right="20px";
+		rulerDiv.style.top="1px";
+		var homeControl = new RulerControl(rulerDiv, g_map);
+		//将自定义的DIV添加到地图容器
+		g_map.getContainer().appendChild(rulerDiv);
+
+		
+		$.ajaxSetup({
+			cache:	false
+		});
+	}
+
+	function getAddressComponentsHtml(pic_name) {
+		var html = '<div class="infoWindowContent">';
+		html += '<img src="__PUBLIC__/realTimePic/'+ pic_name +'" width="256" height="256" /><br>';
+		if(pic_name == "rt.png"){
+			html += '<div id = "refresh_time">暂时没有数据</div>';
+		}else{
+			html += '<div id = "refresh_time">更新时间：'+date2str(new Date(),"yyyy-MM-dd hh:mm:ss")+'</div>'
+		}
+		html += '</div>';
+	    return html;
+	}
+
+	function refresh_realtime_pic(id){
+		var	strUrl	=	"__URL__/get_new_pic/id/"	+	id;
+		$.get(strUrl,
+				function(pic_name){
+					//loop查找对应camera
+					for (var i = 0; i < camera_count; i++) {
+						var cm = cameraArray[i];
+						if(cm.cameraID == id){
+							var temp_html = getAddressComponentsHtml(pic_name);
+							if(cm.infowindow != null){
+								cm.infowindow.setContent(temp_html);
+							}
+							break;
+						}
+						else continue;
+					}
+					// setTimeout(refresh_realtime_pic(id), 3000);	
+				});		
+	}
+
+	function start_refresh(id){
+		refresh_realtime_pic(id);
+		// var camera_count = cameraArray.length;
+
+		for (var i = 0; i < camera_count; i++) {
+			var cm = cameraArray[i];
+			if(cm.cameraID == id){
+				if(cm.started == 0){
+					cm.started = 1;
+					var func1 = function(){
+						refresh_realtime_pic(id);
+					};
+					setInterval(func1, 3000);					
+				}
+				break;
+			}
+			else continue;
+		}		
+
+	  	// setInterval("refresh_realtime_pic(id)", 3000);
+	  	// setTimeout(refresh_realtime_pic(id), 3000);
+	}
+
+	function SetPointMarkOnMap(Point){
+
+		if(cameraArray == null) cameraArray = new Array();
+
+		var iw01      = null;
+		var pos01     = new	sogou.maps.LatLng(39.96020463653672,116.35920044708252);
+		var marker01	= new	sogou.maps.Marker(
+						{	position:	pos01,
+							map:	g_map,
+							title:  "科技楼10002",//
+							icon:	"__PUBLIC__/Images/Car/camera.png" 
+						});	
+	  	if(iw01 == null){
+		  	var temp_html = getAddressComponentsHtml('rt.png');
+		  	iw01 = new sogou.maps.InfoWindow({
+					content: temp_html,
+					maxWidth: 300
+			});
+	  	}
+		if(null!= iw01)
+		{
+		  sogou.maps.event.addListener(marker01, 'click', function() {
+			iw01.open(g_map,marker01);
+			start_refresh("10002");
+		  });				
+		}				
+		var cm01 = new cameraWithMark("10002",marker01, iw01);
+		cameraArray.push(cm01);
+
+		var iw02      = null;
+		var pos02     = new	sogou.maps.LatLng(39.961448, 116.358269);
+		var marker02	= new	sogou.maps.Marker(
+						{	position:	pos02,
+							map:	g_map,
+							title:  "环境科学楼10001",//
+							icon:	"__PUBLIC__/Images/Car/camera.png" 
+						});	
+	  	if(iw02 == null){
+		  	var temp_html = getAddressComponentsHtml('rt.png');
+		  	iw02 = new sogou.maps.InfoWindow({
+					content: temp_html,
+					maxWidth: 300
+			});
+	  	}
+		if(null != iw02)
+		{
+		  sogou.maps.event.addListener(marker02, 'click', function() {
+			iw02.open(g_map,marker02);
+			start_refresh("10001");
+		  });				
+		}				
+		var cm02 = new cameraWithMark("10001",marker02, iw02);
+		cameraArray.push(cm02);
+		
+		add_camera("10003", "学一宿舍楼", 39.960774 ,116.355788);	
+		return;			
+	}
+	function add_camera(guid, text, lat, lng) {
+		var iw02      = null;
+		var pos02     = new	sogou.maps.LatLng(lat, lng);
+		var marker02	= new	sogou.maps.Marker(
+						{	position:	pos02,
+							map:	g_map,
+							title:  text,//
+							icon:	"__PUBLIC__/Images/Car/camera.png" 
+						});	
+	  	if(iw02 == null){
+		  	var temp_html = getAddressComponentsHtml('rt.png');
+		  	iw02 = new sogou.maps.InfoWindow({
+					content: temp_html,
+					maxWidth: 300
+			});
+	  	}
+		if(null != iw02)
+		{
+		  sogou.maps.event.addListener(marker02, 'click', function() {
+			iw02.open(g_map,marker02);
+			start_refresh(guid);
+		  });				
+		}				
+		var cm02 = new cameraWithMark(guid, marker02, iw02);
+		cameraArray.push(cm02);
+
+	}
+	function cameraWithMark(cameraID,marker, infowindow)
+	{
+		this.cameraID = cameraID;
+		this.marker = marker;
+		this.infowindow = infowindow;
+		this.started = 0;//保存是否已经启动自动更新的timer
+	}		
+
+
+	</script>
+
+</head>
+<body	id = "bodycontent" onload="">
+	<div	id="map_canvas"	style="width:	100%;	height:	100%">
+	</div>
+	<!-- <input id = 'keyword_input' value = "关键词" style="width:	50%;" /> -->
+	<!-- <input type='button' value='搜 索' id='search' style="width:8%;" onclick = 'search()'/> -->
+	<!-- <input type='button' value='截 图' id='save_screen' style="width:8%;" onclick = 'save_screen()'/> -->
+	<!-- <input type='button' value='清 空' id='search' style="width:8%;" onclick = 'clear_search_results()'/> -->
+	<div id="result" style="font-size:12px;border:1px solid #c3c3c3;margin-left:10px;"></div>
+</body>
+</html>

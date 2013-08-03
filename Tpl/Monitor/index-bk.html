@@ -1,0 +1,425 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="dateValidate.js" type="text/javascript"></script>
+    <script src="RouteReplay.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+    <script src="http://common.cnblogs.com/script/jquery.json-2.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript">
+
+        var CrtLatLng;
+        var g_map;
+        var g_mark = null;
+        var g_markArray = null;// 路线经过后的点
+        var LatlngArray;
+        var iTimeElapse = 0;
+//        var ReplayArray = null;// 所有要回放的点都要放到这个数组里面，之后的回放操作从该数组中获取回放点
+//        var RoutePoints;
+//        var bStopReplay = true;
+        var bStopMonitoring = false;
+
+//        function CarRoutePoint(id, lat, lng, time) {
+//            this.carID = id;
+//            this.lat = lat;
+//            this.lng = lng;
+//            this.timeStump = time;
+//        }
+        function Point(lat, lng) {
+            this.lat = lat;
+            this.lng = lng;
+        }
+        // Replay Object
+        function Replay(iID, sCarID, sStartTime, sEndTime, iPointCount) {
+            this.ID = iID;
+            this.carId = sCarID;
+            this.startTime = sStartTime;
+            this.endTime = sEndTime;
+            this.pointCount = iPointCount;
+            this.pointArray = new Array();
+        }
+
+        // Add a Point to Replay
+        //function ReplayAddPoints(replay,point)
+        function ReplayAddPoints() {
+            ReplayAddPoint(ReplayArray[2], new Point(39.8423, 116.5619));
+            ReplayAddPoint(ReplayArray[2], new Point(39.8423, 116.6619));
+            ReplayAddPoint(ReplayArray[2], new Point(39.8423, 116.7619));
+            ReplayAddPoint(ReplayArray[2], new Point(39.8423, 116.8619));
+        }
+        // Add a Point to Replay
+        function ReplayAddPoint(replay, point) {
+            replay.pointArray[replay.pointArray.length] = point;
+        }
+        // Replay Object Array
+        function InitialReplayArray() {
+            if (ReplayArray == null) {
+                ReplayArray = new Array();
+            }
+            ReplayArray[0] = new Replay(1, "00001", "20110115", "20110115", 10);
+            ReplayArray[1] = new Replay(2, "00002", "20110116", "20110116", 20);
+            ReplayArray[2] = new Replay(3, "00003", "20110117", "20110117", 20);
+
+
+            ReplayAddPoints();
+        }
+        function ButtonClick_StartReplay(obj) {
+            //alert(obj.id);
+            SetReplayPoints(ReplayArray[obj.id]);
+            StartReplay();
+        }
+        function jsonTest() {
+            RoutePoints = [{ "StrCarID": "270001", "StrLatitude": "143746980", "StrLongitude": "418411248", "StrTime": "2008-05-11 14:12:44" }, { "StrCarID": "270001", "StrLatitude": "143746806", "StrLongitude": "418411140", "StrTime": "2008-05-11 14:42:47" }, { "StrCarID": "270001", "StrLatitude": "143746842", "StrLongitude": "418411158", "StrTime": "2008-05-11 15:20:13" }, { "StrCarID": "270001", "StrLatitude": "143746842", "StrLongitude": "418411158", "StrTime": "2008-05-12 00:04:19" }, { "StrCarID": "270001", "StrLatitude": "143746657", "StrLongitude": "418410727", "StrTime": "2008-05-12 00:20:50" }, { "StrCarID": "270001", "StrLatitude": "143746602", "StrLongitude": "418411146", "StrTime": "2008-05-12 14:19:25" }, { "StrCarID": "270001", "StrLatitude": "143746602", "StrLongitude": "418411146", "StrTime": "2008-05-12 14:19:20" }, { "StrCarID": "270001", "StrLatitude": "143746806", "StrLongitude": "418411026", "StrTime": "2008-05-12 14:22:16" }, { "StrCarID": "270001", "StrLatitude": "143747466", "StrLongitude": "418411146", "StrTime": "2008-05-12 14:24:04" }, { "StrCarID": "270001", "StrLatitude": "143747466", "StrLongitude": "418411146", "StrTime": "2008-05-12 14:24:04" }, { "StrCarID": "270001", "StrLatitude": "143747466", "StrLongitude": "418411146", "StrTime": "2008-05-12 14:24:04" }, { "StrCarID": "270001", "StrLatitude": "143747466", "StrLongitude": "418411146", "StrTime": "2008-05-13 00:03:10"}];
+            var pointsCount = RoutePoints.length;
+            var Routepoint1 = RoutePoints[0];
+            if (ReplayArray == null) {
+                ReplayArray = new Array();
+            }
+            else {
+                ReplayArray.length = 0;
+            }
+            for (var j = 0; j < pointsCount; j++) {
+                ReplayArray[j] = new CarRoutePoint(RoutePoints[j].StrCarID, RoutePoints[j].StrLatitude, RoutePoints[j].StrLongitude, RoutePoints[j].StrTime);
+            }
+                if (bStopReplay == false) {
+                bStopReplay = true;
+            }
+            else {
+                bStopReplay = false;
+                timer_SetPointMarkOnMap();
+            }
+
+        }
+//        function RefreshReplay() {
+//            var table = document.getElementById('ReplayTable');
+//            for (var i = 1; i < table.rows.length; ) {
+//                table.deleteRow(i);
+//            }
+//            for (var i = 0; i < ReplayArray.length; i++) {
+//                var newRow = table.insertRow(1);
+//                newRow.align = "center";
+//                var objReplay = ReplayArray[i];
+//                newRow.insertCell(0).innerHTML = objReplay.ID;
+//                newRow.insertCell(1).innerHTML = objReplay.carId;
+//                newRow.insertCell(2).innerHTML = objReplay.startTime;
+//                newRow.insertCell(3).innerHTML = objReplay.endTime;
+//                newRow.insertCell(4).innerHTML = objReplay.pointCount;
+//                newRow.insertCell(5).innerHTML = "<input id = '" + i + "' style='width:100; height:25' value = '轨迹回放' type = 'button' onclick = 'ButtonClick_StartReplay(this)'>";
+//            }
+//        }
+        function SetReplayPoints(objRep) {
+            LatlngArray = new Array();
+            for (var i = 0; i < objRep.pointArray.length; i++) {
+                var point = objRep.pointArray[i];
+                LatlngArray[i] = new google.maps.LatLng(point.lat, point.lng);
+            }
+            //LatlngArray =[
+            //new google.maps.LatLng(39.8423, 116.4619),
+            //new google.maps.LatLng(39.8423, 116.5619),
+            //new google.maps.LatLng(39.8423, 116.6619),
+            //new google.maps.LatLng(39.8423, 116.7619),
+            //new google.maps.LatLng(39.8423, 116.8619)];
+        }
+//        function StartReplay() {
+//            //SetReplayPoints();
+//            //var Point = LatlngArray[iTimeElapse];
+//            var RoutePoint = RoutePoints[iTimeElapse];
+//            var Point = new google.maps.LatLng(RoutePoint.StrLatitude, RoutePoint.StrLongitude);
+//            g_mark = new google.maps.Marker(
+//			    { position: Point,
+//			        map: g_map,
+//			        icon: "car2.gif"
+//			    });
+//            g_map.setCenter(Point);
+//            iTimeElapse = 0;
+//            SetPointMarkOnMap();
+//        }
+//        function timer_SetPointMarkOnMap() {
+//            if(iTimeElapse >= ReplayArray.length){
+//                //if (iTimeElapse >= RoutePoints.length) {
+//                // 清楚所有路线经过点的地图标记
+//                ClearRoutePointsMarkOnMap();
+//                iTimeElapse = 0;
+//            }
+//            var carRoutePoint = ReplayArray[iTimeElapse];
+//            if (null != carRoutePoint) {
+//                var gLatLngPoint = new google.maps.LatLng(carRoutePoint.lat / 3600000, carRoutePoint.lng / 3600000);
+//                //var RoutePoint = RoutePoints[iTimeElapse];
+//                //var gLatLngPoint = new google.maps.LatLng(RoutePoint.StrLatitude / 3600000, RoutePoint.StrLongitude / 3600000);
+//                AddRoutePointsMarkOnMap(gLatLngPoint, iTimeElapse);
+//                SetPointMarkOnMap(gLatLngPoint);
+//                if (bStopReplay == false) {
+//                    iTimeElapse++;
+//                    setTimeout(timer_SetPointMarkOnMap, 1000);
+//                }            
+//            }
+
+
+//        }
+//        function ClearRoutePointsMarkOnMap() {
+//            if (g_markArray != null) {
+//                for (var i = 0; i < g_markArray.length; i++) {
+//                    if (g_markArray[i] != null) {
+//                        g_markArray[i].setMap(null);
+//                    }
+//                }            
+//        }
+
+//        }
+//        function AddRoutePointsMarkOnMap(Point, index) {
+//            if (null == g_markArray) {
+//                g_markArray = new Array();
+//            }
+//            var pos = Point;
+//            if (bStopReplay == false) {
+//                g_markArray[index] = new google.maps.Marker(
+//			    { position: pos,
+//			        map: g_map,
+//			        icon: "red.png"
+//			    });
+//			}
+//        }
+        function CarMonitor_SetPointMarkOnMap(Point) {
+            var pos = new google.maps.LatLng(Point.StrLatitude/3600000,Point.StrLongitude/3600000);
+            //var pos = Point;
+            //{lat:Point.StrLatitude,lng:Point.StrLongitude};
+            if (g_mark != null) {
+                g_mark.setMap(null); // delete the mark
+            }
+            if (bStopMonitoring == false) {
+                g_mark = new google.maps.Marker(
+			    { position: pos,
+			        map: g_map,
+			        icon: "car2.gif"
+			    });
+                g_map.setCenter(pos);
+        }
+        }
+        function initialize() {
+            var latlng = new google.maps.LatLng(39.8552, 116.4321);
+            var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            // 初始化地图及各个按钮的位置
+            var vMapDiv = document.getElementById("map_canvas");
+            var iWidth = document.body.clientWidth; //* 0.85;
+            //var iWidth = window.innerwidth;// IE not support
+            var iHeight = document.body.clientHeight * 0.8;
+            //var iHeight = window.innerheight;
+            ResizeDiv(vMapDiv, iWidth, iHeight);
+            g_map = new google.maps.Map(vMapDiv, myOptions);
+
+            vMapDiv = document.getElementById("map_funcs");
+            iWidth = document.body.clientWidth * 0.9;
+            iHeight = document.body.clientHeight * 0.8;
+            MoveDiv(vMapDiv, iWidth , 50);
+
+            $.ajaxSetup({
+                cache: false
+            });
+            //ResizeReplayTable();
+            //InitialReplayArray();
+            initializeTimeEnd();
+        }
+        function ResizeReplayTable() {
+            var clientWidth = document.body.clientWidth;
+            var table = document.getElementById("ReplayTable");
+            table.rows[0].cells[0].style.width = clientWidth * 0.08;
+            table.rows[0].cells[1].style.width = clientWidth * 0.2;
+            table.rows[0].cells[2].style.width = clientWidth * 0.2;
+            table.rows[0].cells[3].style.width = clientWidth * 0.2;
+            table.rows[0].cells[4].style.width = clientWidth * 0.2;
+            table.rows[0].cells[5].style.width = clientWidth * 0.12;
+        }
+        function ResizeDiv(obj, iWidth, iHeight) {
+            var vDiv = obj;
+            vDiv.style.width = iWidth;
+            vDiv.style.height = iHeight;
+        }
+        function MoveDiv(obj, iLeft, iTop) {
+            var vDiv = obj;
+            vDiv.style.position = "absolute";
+            vDiv.style.left = iLeft;
+            vDiv.style.top = iTop;
+        }
+//        function RoutePointsReturn(data) {
+//            RoutePoints = data;
+//            var pointsCount = RoutePoints.length;
+//            if (pointsCount <= 0) {
+//                alert("没有返回路线！");
+//                return;
+//            }
+//            //var Routepoint1 = RoutePoints[0];
+//            if (ReplayArray == null) {
+//                ReplayArray = new Array();
+//            }
+//            else {
+//                ReplayArray.length = 0;
+//            }
+//            for (var j = 0; j < pointsCount; j++) {
+//                ReplayArray[j] = new CarRoutePoint(RoutePoints[j].StrCarID, RoutePoints[j].StrLatitude, RoutePoints[j].StrLongitude, RoutePoints[j].StrTime);
+//            }
+//            if (bStopReplay == false) {
+//                bStopReplay = true;
+//            }
+//            else {
+//                bStopReplay = false;
+//                timer_SetPointMarkOnMap();
+//            }
+
+//        }
+//        function ComposeGetRoutePointsUrl(startTime, endTime, carID) {
+//            return "http://61.50.168.12/restsvc/SvcFiles/GetPointsRestful.svc/GetRouteP/" + carID + "/" + startTime + "/" + endTime;
+//            //return "http://localhost/SvcFiles/GetPointsRestful.svc/GetRouteP/" + carID + "/" + startTime + "/" + endTime;
+//        }
+//        function requestRest_getRoutePoints() {
+//            if (0 == validateControlContent(1) && 0 == validateControlContent(2))//保证输入的时间格式正确
+//            {
+//                var strCarID = $("#InputeCarID")[0].value;
+//                var strUrl = ComposeGetRoutePointsUrl(strStartTime, strEndTime, strCarID);
+//                $.ajax({
+//                    type: "get",
+//                    //url: "http://localhost/SvcFiles/GetPointsRestful.svc/GetRouteP/270001/2008-05-10/2008-05-14",
+//                    url: strUrl,
+//                    success: function(data, textStatus) {
+//                        RoutePointsReturn(data);
+//                    },
+//                    complete: function(XMLHttpRequest, textStatus) {
+//                        //HideLoading();
+//                    },
+//                    error: function() {
+//                        //
+//                    }
+//                });            
+//            }
+
+//        }
+        function requestRest_getPos() {
+            var carID = $("#InputeCarID")[0].value;
+            var strUrl = "http://localhost:4171/SvcFiles/GetPointsRestful.svc/GetPos/" + carID;
+            //var strUrl = "http://61.50.168.12/restsvc/SvcFiles/GetPointsRestful.svc/GetPos/" + carID;
+            $.ajax({
+                type: "get",
+                url: strUrl,
+                //url: "http://localhost/SvcFiles/GetPointsRestful.svc/GetPos/"+ $("#InputeCarID")[0].value,
+                //url: "http://61.50.168.12/restsvc/SvcFiles/GetPointsRestful.svc/GetPos/"+ $("#InputeCarID")[0].value,
+                success: function(data, textStatus) {
+                    ajaxGetRequestComplete(data);
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    //HideLoading();
+                },
+                error: function() {
+                    //
+                }
+            });
+        }
+        function requestRest_post() {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:4171/SvcFiles/AddPointsRestful.svc/AddPoint",
+                //url: "http://localhost/SvcFiles/AddPointsRestful.svc/AddPoint",
+                contentType: 'text/json',
+                data: '{"StrLatitude":' + 123 + ',"StrLongitude":"' + 897 + '","StrTime":"' + 234 + '"}',
+                success: function(data, textStatus) {
+                    ajaxPostRequestComplete(data);
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    //HideLoading();
+                },
+                error: function() {
+                    //
+                }
+            });
+        }
+        function ajaxGetRequestComplete(Point) {
+            //alert(data.StrLatitude.toString() + data.StrLongitude + data.StrTime);
+            if (Point == null || Point == "") {
+                setTimeout(requestRest_getPos, 5000);
+                return;
+            }
+            CarMonitor_SetPointMarkOnMap(Point);
+            if (!bStopMonitoring) {
+                setTimeout(requestRest_getPos, 5000);
+            }
+        }
+        function ajaxPostRequestComplete(data) {
+            alert(data.toString());
+        }
+        function StartMonitoring() {
+            bStopMonitoring = false;
+            StopRouteReplay();
+            var carID = $("#InputeCarID")[0].value;
+            if (carID == null || carID == "") {
+                alert("请先输入车辆编码！");
+            }
+            requestRest_getPos(); //通过服务器获取位置
+        }
+        function StopMonitoring() {
+            bStopMonitoring = true;
+            if (g_mark != null) {
+                g_mark.setMap(null); // delete the mark
+            }            
+        }
+//        function StopRouteReplay() {
+//            bStopReplay = true;
+//            if (g_mark != null) {
+//                g_mark.setMap(null); // delete the mark
+//            }
+//            ClearRoutePointsMarkOnMap();
+//        }
+    </script>
+
+</head>
+<body onload="initialize()">
+    <div id="map_canvas" style="width: 280; height: 400">
+    </div>
+    <div id="map_funcs" style="width: 100; height: 600">
+         <br />
+            车号(270001)：
+            <input type="text" id="InputeCarID" size="10" value=""/>   
+        <br />
+        <br />
+        <input style="width: 100; height: 40" value="开始监控" type="button" onclick="StartMonitoring()"/>
+        <input style="width: 100; height: 40" value="停止监控" type="button" onclick="StopMonitoring()"/>
+        <p>
+            <!--<input type="text" name="InputTimeStart" size="10" value="00:00"/>-->
+            开始时间：
+            <input type="text" name="InputeDateStart" size="10" value="2002-02-09"/>
+            <!--<input type="text" name="InputTimeStart" size="10" value="00:00"/>-->
+            结束时间：
+            <input type="text" name="InputeDateEnd" size="10" value="2002-02-09"/>
+            <!--<input type="text" name="InputTimeEnd" size="10" value="00:00"/>-->
+        <br />
+        <input style="width: 100; height: 40" value="轨迹回放" type="button" onclick="requestRest_getRoutePoints()"/>
+        <input style="width: 100; height: 40" value="停止回放" type="button" onclick="StopRouteReplay()"/>
+        </p>
+        <br />
+        <!--<input id="replay" style="width: 100; height: 40" value="路线刷新" type="button" onclick="RefreshReplay()"/>-->
+        <!--<input id="replay" style="width: 100; height: 40" value="自动刷新" type="button" onclick="RefreshReplay()">-->
+        <br />
+    </div>
+    <div>
+        <table border="4" id="ReplayTable">
+            <!--		  <tr align = "center">
+			  <td >序号</td>
+			  <td >车辆号码</td>
+			  <td >开始时间</td>
+			  <td >结束时间</td>
+			  <td >包含点数</td>
+			  <td ></td>
+		  </tr>-->
+            <!-- <tr>
+			  <td>300</td>
+			  <td>400</td>
+			  <td>400</td>
+			  <td>400</td>
+			  <td align = "center"><input id = "treplay" style="width:100; height:20" value = "杞ㄨ抗鍥炴斁" type = "button" onclick = "AddNewReplay()"></td>
+		  </tr>-->
+        </table>
+    </div>
+    <!--<div id="map_canvas" style="width:80%; height:100%"></div>-->
+</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>测试页面</title>
+<meta http-equiv=Content-Type content=text/html;charset=utf-8>
+
+	<script	type="text/javascript"	language="javascript"	src="__PUBLIC__/Js/jquery.js"></script>
+	<script src="__PUBLIC__/js/tools.js" type="text/javascript"></script>  
+<script type="text/javascript">
+	var strTime = "";
+	$(document).ready(function()	{
+			
+		setInterval("requestRest_refreshImg()", 3000);
+	});	
+	function freshTime()
+	{
+		strTime = date2str(new Date(),"yyyy-MM-dd hh:mm:ss");
+		$('#refresh_time').html("更新时间："+ strTime);
+	}
+	function requestRest_refreshImg()
+	{
+		var id = "10001";
+		var	strUrl	=	"__URL__/get_new_pic/id/"	+	id;
+		$.get(strUrl,
+				function(pic_name){
+					$('#imgbox').attr("src","__PUBLIC__/realTimePic/"+pic_name);
+					freshTime();
+				});
+		// $.post(strUrl, null,
+		// 		function(pic_name){
+		// 			$('#imgbox').attr("src","__PUBLIC__/realTimePic/"+pic_name+".png");
+		// 		},
+		// 		 "json");
+	}
+</script>
+
+</head>
+<body leftmargin="0" topmargin="0">
+	<div class = "divLogo">
+	<img id = "imgbox" src="__PUBLIC__/realTimePic/{$pic_name}.png" alt="安全退出" width="256" height="256" border="0">
+
+	</div>
+	<div id = "refresh_time"></div>	
+</body>
+</html>

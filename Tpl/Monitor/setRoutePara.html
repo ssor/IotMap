@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>车辆监控系统</title>
+    <load href='__PUBLIC__/Css/common.css' />
+    <load href='__PUBLIC__/Css/demo_table.css' />
+    <load href='__PUBLIC__/Css/demo_table_jui.css' />
+    <load href='__PUBLIC__/Css/demo_page.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-1.8.16.custom.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-timepicker-addon.css' />
+
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jQTreeTable.js"></script>
+	
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery.ui.datepicker-zh-CN.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+					$(function(){
+
+				$('.example-container > pre').each(function(i){
+
+					eval($(this).text());
+
+				});
+
+			});
+        $(document).ready(function() {
+			$('#startTime').datetimepicker(
+			{
+				showSecond: true,
+				timeFormat: 'hh:mm:ss',
+				dateFormat: 'yy-mm-dd'
+				/*,
+				dayNamesMin:['日','一','二','三','四','五','六'],  
+				monthNamesShort:['1','2','3','4','5','6','7','8','9','10','11','12'],  
+				nextText:"",  
+				prevText:"",  
+				closeText:"关闭",  
+				currentText:"今天"
+				
+				,  
+				showButtonPanel: false,            
+				duration:0,
+				changeMonth: true,  
+				changeYear: true
+				//*/				
+				
+			}
+			);
+			$('#endTime').datetimepicker(
+			{
+				showSecond: true,
+				timeFormat: 'hh:mm:ss',
+				dateFormat: 'yy-mm-dd'
+
+			}		
+			);
+			
+			
+			$('#form1').submit(
+				function(e)
+				{
+					
+					if(!compareTime()){		
+						e.preventDefault();
+					}
+					else
+					{
+						$(this).submit();
+					}
+				}
+			);
+        });
+		function compareTime()
+		{
+			var st1 = $('#startTime').attr('value');
+			var st2 = $('#endTime').attr('value');
+			if(st1 == null || st1.lenght==0)
+			{
+				alert("请设定开始时间！");
+				return false;
+			}
+			if(st2 == null || st2.lenght==0)
+			{
+				alert("请结束开始时间！");
+				return false;
+			}
+			if(st1>=st2){
+				
+				alert("开始时间不能比结束时间大，请重新设定！");
+				return false;
+			}
+			else
+			{
+				return true;
+			//alert("前面时间小");
+			}
+		}
+        function goMonitor(str) {
+            window.location.href = "__URL__/startMnting/carid/"+str;
+        }      
+        
+    </script>
+
+</head>
+<body id = "bodycontent">
+    <div id="maincontent">
+        <div class="divSubTitle">
+            参数设置
+        </div>
+        <div id="divSubTitleTip">
+            选择您要回放车辆的编号和时间
+        </div>
+      <form id="form1" method='post' action="__URL__/showRouteInfo">
+        <div class='DivOperateUpNoOperate'></div>
+        <p>
+            <label class="labelLeft">
+                选择车辆：</label>
+            <select name="carID" class="selectorLayout">
+					<volist name='carList' id='vo'>
+						 <option value ="{$vo.CAR_ID}"  > {$vo.CAR_ID} </option> 
+					</volist>
+            </select>
+        </p>
+		<p>
+			<label class="labelLeft">
+                开始时间：</label>
+				<input type="text" name="startTime" id="startTime" value="{$defaultStartTime}" />				
+				
+			<div>
+
+			</div>
+        </p>
+		<p>
+			<label class="labelLeft">
+                结束时间：</label>
+				<input type="text" name="endTime" id="endTime" value="{$defaultEndTime}" />				
+			
+        </p>
+
+        <div class='DivOperateDown'>
+            <input type="submit" class="buttonOperate" value="确定">
+            <input type="reset" class="buttonOperate" value="重置">
+        </div>
+        </form>
+     </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>车辆监控系统</title>
+    <load href='__PUBLIC__/Css/common.css' />
+    <load href='__PUBLIC__/Css/demo_table.css' />
+    <load href='__PUBLIC__/Css/demo_table_jui.css' />
+    <load href='__PUBLIC__/Css/demo_page.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-1.8.4.custom.css' />
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jQTreeTable.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('.checkbox').click(
+						function() {
+					
+							if ($(this).attr("checked") == "checked") { // 全选
+								//alert('选择');
+
+							}
+							else {
+								//alert('取消选择');
+								if ($('#chkAll').attr("checked") == "checked") {
+									$('#chkAll').removeAttr("checked");
+								}
+							}
+							//$(this).attr({ checked: "checked" });
+						}
+                    );
+
+
+            $('#chkAll').click(
+            function() {
+                if ($(this).attr("checked") == "checked") { // 全选
+                    $('.checkbox').each(
+                    function() {
+                        $(this).attr({ checked: "checked" });
+                    }
+                    );
+                    //alert('全选');
+                }
+                else {
+                    $('.checkbox').each(
+                    function() {
+                        //$(this).attr({ checked: '' });
+                        $(this).removeAttr("checked");
+                    }
+                    );
+                    //alert('取消全选');
+                }
+            }
+            );
+            $('#example').dataTable(
+				{
+				    "bPaginate": true,
+				    //"sScrollX": "100%",
+				    //"sScrollXInner": "110%",
+				    "bInfo": true,
+				    //"bAutoWidth": true,
+				    "bFilter": true,
+				    "sPaginationType": "full_numbers",
+				    "bJQueryUI": true
+				}
+				);
+
+            $('#btngo').click(function() {
+				var arrChk=$("input[name='checkhead']:checked"); 
+					if ($(arrChk).length <= 0) {
+                        alert('请先选择要监控的车!');
+                        return;
+                    }
+                var strs = "";
+                $(".checkbox").each(
+				function() {
+					//strs = $(this).attr("id");
+					if ($(this).attr("checked") == "checked") {
+						 strs += $(this).attr("carid")+",";
+					 }
+				}
+             );
+                if (strs != "") {
+
+                    //这里将得到的数据发送到服务器
+					strs = strs.substring(0,strs.length-1);
+                    goMonitor(strs);
+                } else {
+                    alert("请先选择要编辑的项！");
+                }
+
+            });
+            $('#btnSendTask').click(function(){
+                var arrChk=$("input[name='checkhead']:checked"); 
+                    if ($(arrChk).length <= 0) {
+                        alert('请先选择要监控的车!');
+                        return;
+                    }
+                var strs = "";
+                $(".checkbox").each(
+                    function() {
+                        //strs = $(this).attr("id");
+                        if ($(this).attr("checked") == "checked") {
+                             strs += $(this).attr("carid")+",";
+                         }
+                    }
+                );
+                if (strs != "") {
+
+                    //这里将得到的数据发送到服务器
+                    strs = strs.substring(0,strs.length-1);
+                    SendTask(strs);
+                } else {
+                    alert("请先选择要编辑的项！");
+                }
+            });
+        });
+
+        function goMonitor(str) {
+            window.location.href = "__URL__/startMnting/carid/"+str;
+        }   
+        //将车辆编号和任务内容发送到服务器   
+        function SendTask(str)
+        {
+            var inputTask = $('#inputTask');
+            var task = inputTask[0].value;
+            var url = "__URL__/addTask/task/"+ task +"/carid/"+str;
+            window.location.href = url;
+        }
+    </script>
+
+</head>
+<body id = "bodycontent">
+    <div id="maincontent">
+        <div class="divSubTitle">
+            选择车辆
+        </div>
+        <div id="divSubTitleTip">
+            选择您要监控的车辆
+        </div>
+        <div id='DivSearch'>
+            <input type="button" value="开始监控" class="buttonOperate" id="btngo">
+            <input type="button" value="发送任务" class="buttonOperate" id="btnSendTask">
+            <input  value="任务内容"  id="inputTask" style="width:  50%;">
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="chkAll">
+                    </th>
+                    <th>
+                        车牌号码
+                    </th>
+                    <th>
+                        车辆类型
+                    </th>
+					 <th>
+                        购买时间
+                    </th>
+					 <th>
+                        当前状态
+                    </th>					
+                </tr>
+            </thead>
+            <tbody id="treet1">
+                <volist name="carList" id="vo">
+					<tr class="odd">
+						<td class = "tdCheck">
+						<input type="checkbox" name="checkhead"  carid="{$vo.CAR_ID}"  class ="checkbox">
+						</td>
+						<td >{$vo.CAR_ID}</td>
+						<td >{$vo.VIHICLE_TYPE}</td>
+						<td >{$vo.BUY_TIME}</td>
+						<td >{$vo.CAR_STATE}</td>
+					</tr>
+				</volist>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

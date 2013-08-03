@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>车辆监控系统登录</title>
+
+<link href="__PUBLIC__/Css/skin.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+// position: absolute;
+</script>
+</head>
+<body style = "margin: 0px;">
+<div  class="login_top_bg"> </div>
+<div  class="login_bg">
+	<div class = "login_tip"></div>
+	<div style = "width:100%;height: 532px;">
+		<form  class="login_txt_b" method='post' action="__URL__/checkLogin ">
+		<label class="login_txt1" >账 号：</label>
+		<input name="username" class="editbox1" value="" size="20">
+		<br>
+		<label class="login_txt2">密 码：</label>
+		<input class="editbox2" type="password" size="20" name="password"><img class = "secretImag" src="__PUBLIC__/Images/luck.gif" width="19" height="18">
+		<br>
+		<input name="Submit" type="submit" class="buttonLogin" id="Submit" value="登 录">
+		<input name="cs" type="reset" class="buttonReset" id="cs" value="重 置">
+		</form>
+	</div>
+</div>
+<div style="position: absolute;top:425px;width:100%;text-align:center;">
+	<img src="http://cli.im/qr?text=http://{$ip}:{$port}/index.php/Mobile/index&level=L" alt="移动客户端请扫描" style = "width:100px;height:100px;"/>	
+</div>
+<div  class="login-buttom-bg"></div>
+
+</body>
+</html>

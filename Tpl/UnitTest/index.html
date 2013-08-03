@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>测试页面</title>
+    <load href='__PUBLIC__/Css/common.css' />
+	<style type="text/css">
+	.urltxt
+	{
+		width:80%;
+	}
+	</style>
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+    <script language="JavaScript">
+	var cars = {$carList};
+	var carWithMarkArray = null;
+	function carWithMark(carID,marker)
+	{
+		this.carID = carID;
+		this.marker = marker;
+	}
+		$(document).ready(function(){
+
+				$('#btnpostCarPoint').click(function() {
+					var url = $('#txtpostCarPoint').attr("value");
+					var postdata = $('#txtPosted').attr("value");
+					if(postdata==null || postdata.length==0)
+					{
+						alert('没有可以上传的数据');
+						return;
+					}
+					$.post(url, postdata,ajaxReturn, "json");
+				});
+				
+				$('#btngetLatestCarPoint').click(function() {
+					var url = $('#txtgetLatestCarPoint').attr("value");
+					//var postdata = $('#txtPosted').attr("value");				
+					$.post(url, null,ajaxReturn, "json");
+				});
+				
+				$('#btngetPointList').click(function() {
+					var url = $('#txtgetPointList').attr("value");
+					var postdata = $('#txtPosted').attr("value");				
+					$.post(url, postdata,ajaxReturn, "json");
+				});	
+				
+				// 把要监控的车辆保存起来
+				if(carWithMarkArray == null) carWithMarkArray = new Array();
+				for(i=0;i<cars.length;i++)
+				{
+					var carWMark = new carWithMark(cars[i].strCarID,null);
+					carWithMarkArray.push(carWMark);
+				}
+			
+				
+			}
+		);
+	function ajaxReturn(data, textStatus){
+		$('#txtReturned').attr({value:JsonToStr(data)});
+	}
+	function JsonToStr(o) {      
+		var arr = [];      
+		var fmt = function(s) {      
+		if (typeof s == 'object' && s != null) return JsonToStr(s);      
+		return /^(string|number)$/.test(typeof s) ? "'" + s + "'" : s;      
+		}      
+		for (var i in o) arr.push("'" + i + "':" + fmt(o[i]));      
+		return '{' + arr.join(',') + '}';      
+	}   
+	function obj2str(o){
+    var r = [];
+    if(typeof o =="string") return "\""+o.replace(/([\'\"\\])/g,"\\$1").replace(/(\n)/g,"\\n").replace(/(\r)/g,"\\r").replace(/(\t)/g,"\\t")+"\"";
+    if(typeof o == "object"){
+        if(!o.sort){
+            for(var i in o)
+                r.push(i+":"+obj2str(o[i]));
+            if(!!document.all && !/^\n?function\s*toString\(\)\s*\{\n?\s*\[native code\]\n?\s*\}\n?\s*$/.test(o.toString)){
+                r.push("toString:"+o.toString.toString());
+            }
+            r="{"+r.join()+"}"
+        }else{
+            for(var i =0;i<o.length;i++)
+                r.push(obj2str(o[i]))
+            r="["+r.join()+"]"
+        }
+        return r;
+    }
+    return o.toString();
+}	
+	
+    </script>	
+	
+</head>
+<body id = "bodycontent">
+    <div id="maincontent">
+        <div class="divSubTitle">
+            测试页面
+        </div>
+        <div id='DivSearch'>
+            <input type="button" value="postCarPoint" id="btnpostCarPoint">	链接：
+			<input type="text" name="name" class="urltxt" id = "txtpostCarPoint"  value="http://localhost/phpRest/index.php/CarMonitorPost/postCarPoint">
+			<br>
+			<input type="button" value="getLatestCarPoint" id="btngetLatestCarPoint">	链接：
+			<input type="text" name="name" class="urltxt" id = "txtgetLatestCarPoint"  value="http://localhost/phpRest/index.php/CarMonitorGet/getLatestCarPoint/id/001">
+        
+			<br>
+			<input type="button" value="getPointList" id="btngetPointList">	链接：
+			<input type="text" name="name" class="urltxt" id = "txtgetPointList"  value="http://localhost/phpRest/index.php/CarMonitorGet/getPointList">
+  		
+		</div>
+		<div id='DivSearch'>
+        <p>
+            <label class="highlabelLeft">
+                上传数据：</label>
+            <textarea name="comment" class="textareaRight" id = "txtPosted" value=""></textarea>
+        </p>
+		<p>
+            <label class="highlabelLeft">
+                返回数据：</label>
+            <textarea name="comment" class="textareaRight" id = "txtReturned"></textarea>
+        </p>
+        </div>
+    </div>
+</body>
+</html>

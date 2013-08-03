@@ -1,0 +1,631 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"came",
+				"camera_count"
+			],
+			[
+				"fun",
+				"fun	Function"
+			],
+			[
+				"set",
+				"setInterval"
+			],
+			[
+				"req",
+				"req1	require_once …"
+			],
+			[
+				"iw",
+				"iw02"
+			],
+			[
+				"ca",
+				"cameraID"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"g",
+				"g_infowindow"
+			],
+			[
+				"str",
+				"strTime"
+			],
+			[
+				"ass",
+				"assign"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"onc",
+				"onclick	Attr"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Lib/Action/WelcomeAction.class.php",
+			"settings":
+			{
+				"buffer_size": 8010,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Welcome/welcome.html",
+			"settings":
+			{
+				"buffer_size": 1414,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Conf/config.php",
+			"settings":
+			{
+				"buffer_size": 2044,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Lib/Action/MonitorAction.class.php",
+			"settings":
+			{
+				"buffer_size": 10190,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Mobile/start_upload_location.html",
+			"settings":
+			{
+				"buffer_size": 5236,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/index.html",
+			"settings":
+			{
+				"buffer_size": 748,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/left.html",
+			"settings":
+			{
+				"buffer_size": 5579,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/right.html",
+			"settings":
+			{
+				"buffer_size": 7697,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/realtimeDlg.html",
+			"settings":
+			{
+				"buffer_size": 1184,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/startMnting.html",
+			"settings":
+			{
+				"buffer_size": 6955,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Action/tools.php",
+			"settings":
+			{
+				"buffer_size": 2788,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/program/www/IOTMap/Public/Js/jquery.zxxbox/js/jquery.zxxbox.3.0.js",
+		"/C/program/www/IOTMap/Tpl/Monitor/testDlg.html",
+		"/C/program/www/IOTMap/Tpl/Monitor/startReplaying.html",
+		"/C/program/www/IOTMap/Lib/Action/MonitorAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/CarMonitorGetAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/MobileAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/CarMonitorPostAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/CarManagementAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/IndexAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/OrderRestAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/CarManagementRestAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/UserManagementAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/TaskAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/class.CarPoint.php",
+		"/C/program/www/IOTMap/Lib/Action/class.CarInfo.php",
+		"/C/program/www/IOTMap/Lib/Action/UnitTestAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/class.Route.php",
+		"/C/program/www/IOTMap/Lib/Action/class.people.php",
+		"/C/program/www/IOTMap/Lib/Action/HttpClient.class.php",
+		"/C/program/www/IOTMap/Lib/Action/InventoryAction.class.php",
+		"/C/program/www/IOTMap/Lib/Action/RestAction.class.php",
+		"/C/program/www/IOTMap/index.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"10002",
+			"cm01",
+			"marker01",
+			"pos01",
+			"iw01",
+			"cm",
+			"marker",
+			"pos",
+			"iw",
+			"carWithMarkArray",
+			"refreshTimeSpan",
+			"g_infowindow",
+			"RulerControl",
+			"infoWindowContent",
+			"getAddressComponentsHtml"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Lib/Action/WelcomeAction.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8010,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7945,
+								7952
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 855.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Tpl/Welcome/welcome.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Conf/config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2044,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1420,
+								1420
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 345.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Lib/Action/MonitorAction.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10190,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1042,
+								1042
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Tpl/Mobile/start_upload_location.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2148,
+								2148
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 510.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Tpl/Monitor/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 748,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								361,
+								361
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Tpl/Monitor/left.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								337,
+								263
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Tpl/Monitor/right.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7697,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3187,
+								3189
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 902.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Tpl/Monitor/realtimeDlg.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1184,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								798,
+								798
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Tpl/Monitor/startMnting.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6955,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1633,
+								1633
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 706.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Lib/Action/tools.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2788,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								84,
+								91
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "IotMap.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 252.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

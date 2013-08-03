@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>车辆监控系统</title>
+    <load href='__PUBLIC__/Css/common.css' />
+    <load href='__PUBLIC__/Css/demo_table.css' />
+    <load href='__PUBLIC__/Css/demo_table_jui.css' />
+    <load href='__PUBLIC__/Css/demo_page.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-1.8.4.custom.css' />
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jQTreeTable.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('.checkbox').click(
+                    function() {
+                        if ($(this).attr("checked") == "checked") { // 全选
+                            //alert('选择');
+								$('.checkbox').each(
+								function() {
+										$(this).removeAttr("checked");
+									}
+								);
+								$(this).attr({ checked: "checked" });
+                        }
+                        else {
+                            //alert('取消选择');
+                            if ($('#chkAll').attr("checked") == "checked") {
+                                $('#chkAll').removeAttr("checked");
+                            }
+                        }
+                        //$(this).attr({ checked: "checked" });
+                    }
+                    );
+
+
+            $('#chkAll').click(
+            function() {
+                if ($(this).attr("checked") == "checked") { // 全选
+                    $('.checkbox').each(
+                    function() {
+                        $(this).attr({ checked: "checked" });
+                    }
+                    );
+                    //alert('全选');
+                }
+                else {
+                    $('.checkbox').each(
+                    function() {
+                        //$(this).attr({ checked: '' });
+                        $(this).removeAttr("checked");
+                    }
+                    );
+                    //alert('取消全选');
+                }
+            }
+            );
+            $('#example').dataTable(
+				{
+				    "bPaginate": true,
+				    //"sScrollX": "100%",
+				    //"sScrollXInner": "110%",
+				    "bInfo": true,
+				    //"bAutoWidth": true,
+				    "bFilter": true,
+				    "sPaginationType": "full_numbers",
+				    "bJQueryUI": true
+				}
+				);
+
+            $('#btngo').click(function() {
+				var arrChk=$("input[name='checkhead']:checked"); 
+                    if ($(arrChk).length > 1) {
+                        alert('一次只能选择一段路径回放');
+                        return;
+                    }
+					if ($(arrChk).length <= 0) {
+                        alert('请先选择要回放的路径!');
+                        return;
+                    }
+				var id    = ""; 
+				var start = ""; 
+				var end   = ""; 
+                $(".checkbox").each(
+             function() {
+                 //   strs = $(this).attr("id");
+                 if ($(this).attr("checked") == "checked") {
+                     id    =  $(this).attr("carid");
+                     start =  $(this).attr("startT");
+                     end   =  $(this).attr("endT");
+                 }
+             }
+             );
+                if (id != "" && start!="" && end != "") {
+
+                    //这里将得到的数据发送到服务器
+                    goReplay(id,start,end);
+                } else {
+                    alert("页面操作异常！");
+                }
+
+            });
+
+        });
+
+        function goReplay(id,start,end) {
+            window.location.href = "__URL__/startReplaying/carid/"+id+"/start/"+start+"/end/"+end;
+        }      
+        
+    </script>
+
+</head>
+<body id = "bodycontent">
+    <div id="maincontent">
+        <div class="divSubTitle">
+            选择回放路径
+        </div>
+        <div id="divSubTitleTip">
+            选择您要回放的车辆路径
+        </div>
+        <div id='DivSearch'>
+            <input type="button" value="确定" class="buttonOperate" id="btngo">
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        <!--<input type="checkbox" id="chkAll">-->
+                    </th>
+                    <th>
+                        开始时间
+                    </th>
+                    <th>
+                        结束时间
+                    </th>
+                    <th>
+                        包含点数
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="treet1">
+                <volist name="routeList" id="vo">
+					<tr class="odd">
+						<td class = "tdCheck">
+						<input type="checkbox" name="checkhead"  carid="{$vo['carID']}" startT = "{$vo['TimeStart']}" endT = "{$vo['TimeEnd']}" class ="checkbox">
+						</td>
+						<td >{$vo['TimeStart']}</td>
+						<td >{$vo['TimeEnd']}</td>
+						<td >{$vo['pointCount']}</td>
+					</tr>
+				</volist>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

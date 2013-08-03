@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>信息标准管理系统</title>
+	
+	 <load href='__PUBLIC__/Css/jquery-ui-1.8.16.custom.css' />
+    <load href='__PUBLIC__/Css/jquery-ui-timepicker-addon.css' />
+
+    <load href='__PUBLIC__/Css/common.css' />
+    <load href="__PUBLIC__/Js/mootools.js" />
+    <load href="__PUBLIC__/Js/Ajax/ThinkAjax.js" />
+    <load href="__PUBLIC__/Js/jquery.js" />
+    <load href="__PUBLIC__/Js/mootools.js" />
+    <script type="text/javascript" language="javascript" src="__PUBLIC__/Js/jquery.js"></script>
+
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" language="JavaScript">
+	
+	        $(document).ready(function() {
+			$('#buyTime').datetimepicker(
+			{
+				//showSecond: false,
+				timeFormat: '',
+				dateFormat: 'yy-mm-dd'
+
+			}
+			);
+			
+			$('#buyTime').datetimepicker('setDate', (new Date()) );
+
+			$('#form1').submit(
+				function(e)
+				{
+					
+					if(!compareTime()){		
+						e.preventDefault();
+					}
+					else
+					{
+						$(this).submit();
+					}
+				}
+			);
+        });
+	
+        function add() {
+            ThinkAjax.sendForm('form1', '__URL__/insert', complete, 'result');
+            //$.post('__URL__/insert', $("#form1").serialize(),complete);
+        }
+        function addCollectionName() {
+            window.location.href = "__URL__/CollectionNameIndex";
+        }
+        function complete(data, status) {
+            if (status == 1)
+            //if (status=="success")
+            {
+                window.setTimeout(function() { window.location.href = '__URL__', 20000 });
+            }
+        }
+        function clear() {
+            // $("#name")[0].value = "";
+            //$("#tbname")[0].value = "";
+            //$("#comment")[0].value = "";
+            a = 1;
+            b = 2;
+
+        }
+    </script>
+
+</head>
+<body id = "bodycontent">
+    <div id = "maincontent"> 
+	    <div class = "divSubTitle">
+				添加新车
+	    </div>
+			<div id="divSubTitleTip">
+				在这里添加新的车辆
+	    </div>
+    <form id="form1" name="form1" method='post' action="__URL__/carInsert">
+            <div class='DivOperateUpNoOperate'>
+        </div>
+    
+			<p>
+				<label class="labelLeft" >车牌号码：</label>
+				<input type="text" name="carID"  class="inputRight"
+				 value="">
+			</p>
+        <p>
+            <label class="labelLeft">
+                车辆类型：</label>
+            <select name="vihicleType" class="selectorLayout">
+                <option value="普通轿车">普通轿车</option>
+                <option value="卡车">卡车</option>
+                <option value="面包车">面包车</option>
+            </select>
+        </p>
+		<p>
+			<label class="labelLeft">
+                购买时间：</label>
+				<input type="text" name="buyTime" id="buyTime" value="{$defaultBuyTime}" />				
+			
+        </p>
+        <div class='DivOperateDown'>
+            <input type="submit" class="buttonOperate" value="保存">
+            <input type="reset" class="buttonOperate" value="清空">
+        </div>
+    </form>
+    </div>
+</body>
+</html>

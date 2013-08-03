@@ -28,13 +28,19 @@ class MonitorAction extends Action
 		// echo $id;return;
 		foreach(glob("Public/realTimePic/*") as $d)
 		{
+			//echo $d;echo "<br>";
+			///*
 		    if(!is_dir($d))
 		    {
 		    	$name = basename($d);
 		        if($name != 'rt.png')
 		        {
+					//echo $name;echo "<br>";
+					///*
 		        	// $bfind = stripos($name, $id, 0);
-		        	if(false == stristr($name, $id, 0)){
+					if(false === strpos($name, $id)){
+		        	//if(false == stristr($name, $id, 0)){
+						//echo $name.' dose not contin id '.$id.'<br>';
 		        		//没找到
 		        		continue;
 		        	}
@@ -43,9 +49,10 @@ class MonitorAction extends Action
 				        echo $name;
 				        break;
 		        	}
+					//*/
 		        }
-		        // echo "<br>";
 		    }
+			//*/
 		}
 		if($finded == false){
 			echo "rt.png";

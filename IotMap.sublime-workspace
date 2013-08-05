@@ -80,10 +80,34 @@
 			}
 		},
 		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 259,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "Lib/Action/MonitorAction.class.php",
 			"settings":
 			{
-				"buffer_size": 10190,
+				"buffer_size": 10353,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Lib/Action/MobileAction.class.php",
+			"settings":
+			{
+				"buffer_size": 614,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Mobile/index_mobile_map.html",
+			"settings":
+			{
+				"buffer_size": 5893,
 				"line_ending": "Windows"
 			}
 		},
@@ -99,7 +123,15 @@
 			"file": "Tpl/Monitor/index.html",
 			"settings":
 			{
-				"buffer_size": 748,
+				"buffer_size": 7697,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Monitor/top.html",
+			"settings":
+			{
+				"buffer_size": 850,
 				"line_ending": "Windows"
 			}
 		},
@@ -171,10 +203,10 @@
 	},
 	"file_history":
 	[
+		"/C/program/www/IOTMap/Lib/Action/MonitorAction.class.php",
 		"/C/program/www/IOTMap/Public/Js/jquery.zxxbox/js/jquery.zxxbox.3.0.js",
 		"/C/program/www/IOTMap/Tpl/Monitor/testDlg.html",
 		"/C/program/www/IOTMap/Tpl/Monitor/startReplaying.html",
-		"/C/program/www/IOTMap/Lib/Action/MonitorAction.class.php",
 		"/C/program/www/IOTMap/Lib/Action/CarMonitorGetAction.class.php",
 		"/C/program/www/IOTMap/Lib/Action/MobileAction.class.php",
 		"/C/program/www/IOTMap/Lib/Action/CarMonitorPostAction.class.php",
@@ -210,6 +242,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"initialize",
 			"10002",
 			"cm01",
 			"marker01",
@@ -242,7 +275,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -314,8 +347,8 @@
 						"selection":
 						[
 							[
-								1420,
-								1420
+								643,
+								643
 							]
 						],
 						"settings":
@@ -324,26 +357,53 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 345.0,
+						"translation.y": 227.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "Lib/Action/MonitorAction.class.php",
+					"file": "index.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10190,
+						"buffer_size": 259,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1042,
-								1042
+								247,
+								247
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Lib/Action/MonitorAction.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10353,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1383,
+								1383
 							]
 						],
 						"settings":
@@ -352,13 +412,70 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
+					"file": "Lib/Action/MobileAction.class.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								560,
+								576
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Tpl/Mobile/index_mobile_map.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1410,
+								1410
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 317.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "Tpl/Mobile/start_upload_location.html",
 					"semi_transient": false,
 					"settings":
@@ -387,20 +504,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
 					"file": "Tpl/Monitor/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 748,
+						"buffer_size": 7697,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								361,
-								361
+								1016,
+								1016
 							]
 						],
 						"settings":
@@ -414,7 +531,35 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 9,
+					"file": "Tpl/Monitor/top.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 850,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								830,
+								830
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
 					"file": "Tpl/Monitor/left.html",
 					"semi_transient": false,
 					"settings":
@@ -441,7 +586,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 11,
 					"file": "Tpl/Monitor/right.html",
 					"semi_transient": false,
 					"settings":
@@ -453,8 +598,8 @@
 						"selection":
 						[
 							[
-								3187,
-								3189
+								7077,
+								6184
 							]
 						],
 						"settings":
@@ -463,13 +608,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 902.0,
+						"translation.y": 2700.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 12,
 					"file": "Tpl/Monitor/realtimeDlg.html",
 					"semi_transient": false,
 					"settings":
@@ -481,8 +626,8 @@
 						"selection":
 						[
 							[
-								798,
-								798
+								911,
+								911
 							]
 						],
 						"settings":
@@ -497,7 +642,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 13,
 					"file": "Tpl/Monitor/startMnting.html",
 					"semi_transient": false,
 					"settings":
@@ -525,7 +670,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 14,
 					"file": "Lib/Action/tools.php",
 					"semi_transient": false,
 					"settings":

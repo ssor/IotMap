@@ -22,7 +22,11 @@ class MobileAction extends Action{
 
 		$this->display();		
 	}
-
+	public function index_mobile_map()
+	{
+		$this->display();
+		
+	}
 }
 
 ?>

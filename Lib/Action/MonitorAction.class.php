@@ -66,6 +66,7 @@ class MonitorAction extends Action
 		// $this->assign("pic_name","Blender");
 		$this->display();
 	}
+
 	public function chooseCartoMnt()
 	{
 		if($this->CheckRole())

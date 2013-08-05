@@ -59,57 +59,7 @@
     function SetPointMarkOnMap(Point){
 
         if(cameraArray == null) cameraArray = new Array();
-/*
-        var iw01      = null;
-        var pos01     = new sogou.maps.LatLng(39.96020463653672,116.35920044708252);
-        var marker01    = new   sogou.maps.Marker(
-                        {   position:   pos01,
-                            map:    g_map,
-                            title:  "科技楼10002",//
-                            icon:   "__PUBLIC__/Images/Car/camera.png" 
-                        }); 
-        if(iw01 == null){
-            var temp_html = getAddressComponentsHtml('rt.png');
-            iw01 = new sogou.maps.InfoWindow({
-                    content: temp_html,
-                    maxWidth: 300
-            });
-        }
-        if(null!= iw01)
-        {
-          sogou.maps.event.addListener(marker01, 'click', function() {
-            iw01.open(g_map,marker01);
-            start_refresh("10002");
-          });               
-        }               
-        var cm01 = new cameraWithMark("10002",marker01, iw01);
-        cameraArray.push(cm01);
 
-        var iw02      = null;
-        var pos02     = new sogou.maps.LatLng(39.961448, 116.358269);
-        var marker02    = new   sogou.maps.Marker(
-                        {   position:   pos02,
-                            map:    g_map,
-                            title:  "环境科学楼10001",//
-                            icon:   "__PUBLIC__/Images/Car/camera.png" 
-                        }); 
-        if(iw02 == null){
-            var temp_html = getAddressComponentsHtml('rt.png');
-            iw02 = new sogou.maps.InfoWindow({
-                    content: temp_html,
-                    maxWidth: 300
-            });
-        }
-        if(null != iw02)
-        {
-          sogou.maps.event.addListener(marker02, 'click', function() {
-            iw02.open(g_map,marker02);
-            start_refresh("10001");
-          });               
-        }               
-        var cm02 = new cameraWithMark("10001",marker02, iw02);
-        cameraArray.push(cm02);
-*/
 
         add_camera("10001", "环境科学楼", 39.961448, 116.358269);    
         add_camera("10002", "科技楼", 39.96020463653672,116.35920044708252);    
@@ -136,8 +86,9 @@
         if(null != iw02)
         {
           sogou.maps.event.addListener(marker02, 'click', function() {
-            iw02.open(g_map,marker02);
-            start_refresh(guid);
+            // iw02.open(g_map,marker02);
+            // start_refresh(guid);
+            redirect_to_realtime_camera_form(guid);
           });               
         }               
         var cm02 = new cameraWithMark(guid, marker02, iw02);
@@ -152,7 +103,10 @@
         this.started = 0;//保存是否已经启动自动更新的timer
     }
 
-
+    function redirect_to_realtime_camera_form (id) {
+        top.location.href = get_host_url() + "/Mobile/index_realtime_camera/id/"+id;
+        // body...
+    }
     function redirect_to_main_form()
     {
         top.location.href = get_host_url() + "/Mobile/index";
@@ -174,8 +128,8 @@
         top:0px;"></div>
     </div>
     <div data-theme="a" data-role="footer" data-position="fixed">
-        <h3 onclick = "redirect_to_main_form()">
-            返回主页面
+        <h3 onclick = "">
+            
         </h3>
     </div>
 </div>

@@ -99,7 +99,7 @@
 			"file": "Lib/Action/MobileAction.class.php",
 			"settings":
 			{
-				"buffer_size": 614,
+				"buffer_size": 2336,
 				"line_ending": "Windows"
 			}
 		},
@@ -107,7 +107,15 @@
 			"file": "Tpl/Mobile/index_mobile_map.html",
 			"settings":
 			{
-				"buffer_size": 5893,
+				"buffer_size": 4145,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tpl/Mobile/index_realtime_camera.html",
+			"settings":
+			{
+				"buffer_size": 2464,
 				"line_ending": "Windows"
 			}
 		},
@@ -242,6 +250,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lblTip",
+			"start_refresh",
 			"initialize",
 			"10002",
 			"cm01",
@@ -275,7 +285,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -402,8 +412,8 @@
 						"selection":
 						[
 							[
-								1383,
-								1383
+								1249,
+								397
 							]
 						],
 						"settings":
@@ -412,7 +422,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 135.0,
+						"translation.y": 180.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -423,15 +433,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 614,
+						"buffer_size": 2336,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								560,
-								576
+								2137,
+								2137
 							]
 						],
 						"settings":
@@ -440,7 +450,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 392.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -451,15 +461,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5893,
+						"buffer_size": 4145,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1410,
-								1410
+								4095,
+								4095
 							]
 						],
 						"settings":
@@ -469,13 +479,42 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 317.0,
+						"translation.y": 1635.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
+					"file": "Tpl/Mobile/index_realtime_camera.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2464,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1742,
+								1742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
 					"file": "Tpl/Mobile/start_upload_location.html",
 					"semi_transient": false,
 					"settings":
@@ -487,8 +526,8 @@
 						"selection":
 						[
 							[
-								2148,
-								2148
+								3404,
+								3367
 							]
 						],
 						"settings":
@@ -498,13 +537,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 510.0,
+						"translation.y": 1141.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "Tpl/Monitor/index.html",
 					"semi_transient": false,
 					"settings":
@@ -516,8 +555,8 @@
 						"selection":
 						[
 							[
-								1016,
-								1016
+								3605,
+								3605
 							]
 						],
 						"settings":
@@ -525,13 +564,13 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3285.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "Tpl/Monitor/top.html",
 					"semi_transient": false,
 					"settings":
@@ -559,7 +598,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "Tpl/Monitor/left.html",
 					"semi_transient": false,
 					"settings":
@@ -586,7 +625,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "Tpl/Monitor/right.html",
 					"semi_transient": false,
 					"settings":
@@ -614,7 +653,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "Tpl/Monitor/realtimeDlg.html",
 					"semi_transient": false,
 					"settings":
@@ -626,8 +665,8 @@
 						"selection":
 						[
 							[
-								911,
-								911
+								1133,
+								1133
 							]
 						],
 						"settings":
@@ -636,13 +675,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 14,
 					"file": "Tpl/Monitor/startMnting.html",
 					"semi_transient": false,
 					"settings":
@@ -670,7 +709,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 15,
 					"file": "Lib/Action/tools.php",
 					"semi_transient": false,
 					"settings":

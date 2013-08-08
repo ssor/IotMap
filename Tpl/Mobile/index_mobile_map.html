@@ -38,7 +38,7 @@
         var myOptions   =   {
             zoom:   16,
             center: latlng,
-            mapControl: true,
+            mapControl: false,
             scaleControl: true,
             hdMap:true,
             mapTypeId:  sogou.maps.MapTypeId.ROADMAP
@@ -118,20 +118,21 @@
 <body onload="">
 <div data-role="page" id="page1">
     <div data-theme="a" data-role="header">
+        <a data-role = "button" href="http://wwww.index_mobile_map.com" class = "ui-btn-left" data-icon="arrow-l" data-iconpos="left">返回</a>
         <h3>
             实时校园视频分布图
         </h3>
     </div>
-    <div data-role="content">
+    <div data-role="content" style="padding:5px;">
 
         <div id="map_canvas" style="width:100%;height:100%; position:relative;  
         top:0px;"></div>
     </div>
-    <div data-theme="a" data-role="footer" data-position="fixed">
+<!--     <div data-theme="a" data-role="footer" data-position="fixed">
         <h3 onclick = "">
             
         </h3>
-    </div>
+    </div> -->
 </div>
 
 </body>

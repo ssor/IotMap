@@ -107,7 +107,7 @@
 			"file": "Tpl/Mobile/index_mobile_map.html",
 			"settings":
 			{
-				"buffer_size": 4317,
+				"buffer_size": 4417,
 				"line_ending": "Windows"
 			}
 		},
@@ -115,7 +115,7 @@
 			"file": "Tpl/Mobile/index_realtime_camera.html",
 			"settings":
 			{
-				"buffer_size": 2825,
+				"buffer_size": 2854,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,6 +251,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\";\n",
 			"111",
 			"3c3c3c",
 			"lblTip",
@@ -443,8 +444,8 @@
 						"selection":
 						[
 							[
-								914,
-								914
+								878,
+								878
 							]
 						],
 						"settings":
@@ -453,7 +454,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 227.0,
+						"translation.y": 143.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -464,15 +465,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4317,
+						"buffer_size": 4417,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3973,
-								3973
+								1265,
+								1265
 							]
 						],
 						"settings":
@@ -482,7 +483,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1540.0,
+						"translation.y": 168.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -493,15 +494,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2825,
+						"buffer_size": 2854,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2278,
-								2318
+								398,
+								214
 							]
 						],
 						"settings":
@@ -511,7 +512,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 882.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

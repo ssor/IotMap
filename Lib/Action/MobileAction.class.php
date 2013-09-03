@@ -38,6 +38,18 @@ class MobileAction extends Action{
 		// $this->assign("pic_name","Blender");
 		$this->display();
 	}
+	//视频更新完全版，包括标题栏、时间提示
+	public function index_realtime_camera_full()
+	{
+		$id = Tools::request("id");
+		$camera_text = $this->get_camera_text_by_id($id);
+
+		$this->assign("pic_name","rt");
+		$this->assign("camera_id", $id);
+		$this->assign("camera_text", $camera_text);
+		// $this->assign("pic_name","Blender");
+		$this->display();
+	}
 	public function get_new_pic()
 	{
 		$id = Tools::request("id");
@@ -63,9 +75,15 @@ class MobileAction extends Action{
 		        		continue;
 		        	}
 		        	else{
-		        		$finded = true;
-				        echo $name;
-				        break;
+		        		//比较图片的更新时间是否时间过长，过长的话需要返回默认图片
+		        		$index_of_gap = strpos($name, "-");
+		        		$index_of_dot = strpos($name, ".");
+						$stamp = substr($name, $index_of_gap+1, $index_of_dot-$index_of_gap-1);
+						if( (mktime()-$stamp) < 10 * 60){
+			        		$finded = true;
+					        echo $name;
+					        break;
+						}
 		        	}
 					//*/
 		        }

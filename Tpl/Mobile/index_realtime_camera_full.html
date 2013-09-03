@@ -57,7 +57,7 @@
         $.get(strUrl,
                 function(pic_name){
                     $('#imgbox').attr("src","__PUBLIC__/realTimePic/"+pic_name);
-                    // freshTime();
+                    freshTime();
                 });
         // $.post(strUrl, null,
         //      function(pic_name){
@@ -76,12 +76,18 @@
 </head>
 <body onload="">
 <div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+    <a data-role = "button" href="" class = "ui-btn-left" onclick="redirect_to_main_form()" data-icon="arrow-l" data-iconpos="left">返回</a>
+        <h3>
+            {$camera_text}
+        </h3>
+    </div>
     <div data-role="content" style="padding:5px;">
     <div id = "divLogo">
     <img id = "imgbox" src="__PUBLIC__/realTimePic/{$pic_name}.png"  width="98%" height="60%" border="0">
 
     </div>
-    <!-- <h3 id = "lblTip">等待数据更新中...</h3> -->
+    <h3 id = "lblTip">等待数据更新中...</h3>
     </div>
 <!--     <div data-theme="a" data-role="footer" data-position="fixed">
         <h3 onclick = "redirect_to_main_form()">
